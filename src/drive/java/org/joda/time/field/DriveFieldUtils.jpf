@@ -1,0 +1,8 @@
+@using = jpf-jdart
+@include = ./jdart.jpf
+
+target=org.joda.time.field.DriveFieldUtils
+
+concolic.method.safeMultiply = \
+	org.joda.time.field.DriveFieldUtils.safeMultiply(val1:long, val2:long)
+concolic.method.testSafeMultiply.config = testSafeMultiply

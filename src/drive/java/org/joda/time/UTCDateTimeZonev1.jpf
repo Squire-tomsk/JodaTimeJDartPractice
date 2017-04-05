@@ -1,0 +1,9 @@
+@using = jpf-jdart
+@include = ./jdart.jpf
+
+target=org.joda.time.DriveUTCDateTimeZone
+
+concolic.method.getStandardOffset = org.joda.time.UTCDateTimeZone.getStandardOffset(instant:long)
+concolic.method.getStandardOffset.config = getStandardOffset
+concolic.method = getStandardOffset
+
