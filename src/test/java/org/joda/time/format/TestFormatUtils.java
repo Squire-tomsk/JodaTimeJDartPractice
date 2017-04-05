@@ -102,12 +102,12 @@ public class TestFormatUtils extends TestCase {
         Assert.assertEquals(3, result);
     }
 
-    // test created: Mazaeva E.
+// test created: Mazaeva E.
     //mutants 414 8. negated conditional → KILLED;
     // 419 1. Replaced double division with multiplication → KILLED; 2. Replaced integer addition with subtraction → KILLED
     public void test_CalculateDigitCount6() {
-        int result = FormatUtils.calculateDigitCount(-513l);
-        Assert.assertEquals(4, result);
+        int result = FormatUtils.calculateDigitCount(-4611686018427387904l);
+        Assert.assertEquals(20, result);
     }
 
     // test created: Mazaeva E.

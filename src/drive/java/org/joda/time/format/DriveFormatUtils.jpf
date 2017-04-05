@@ -16,4 +16,3 @@ concolic.method.testCalculateDigitCount = \
 	org.joda.time.format.DriveFormatUtils.testCalculateDigitCount(value:long)
 concolic.method.testCalculateDigitCount.config = testCalculateDigitCount
 
-
