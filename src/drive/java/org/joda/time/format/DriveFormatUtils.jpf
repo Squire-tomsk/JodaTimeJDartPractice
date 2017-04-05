@@ -7,3 +7,13 @@ concolic.method.testAppendPaddedInteger = \
 	org.joda.time.format.DriveFormatUtils.testAppendPaddedInteger(value:long, size:int)
 concolic.method.testAppendPaddedInteger.config = testAppendPaddedInteger
 jdart.configs.testAppendPaddedInteger.constraints=(size < 100)
+
+concolic.method.testCreateErrorMessage = \
+	org.joda.time.format.DriveFormatUtils.testCreateErrorMessage(text:String, errorPos:int)
+concolic.method.testCreateErrorMessage.config = testCreateErrorMessage
+
+concolic.method.testCalculateDigitCount = \
+	org.joda.time.format.DriveFormatUtils.testCalculateDigitCount(value:long)
+concolic.method.testCalculateDigitCount.config = testCalculateDigitCount
+
+
