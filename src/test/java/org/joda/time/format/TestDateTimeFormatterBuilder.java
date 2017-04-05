@@ -29,6 +29,8 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeFieldType;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * This class is a Junit unit test for DateTimeFormatterBuilder.
@@ -796,6 +798,26 @@ public class TestDateTimeFormatterBuilder extends TestCase {
             fail();
         } catch (IllegalArgumentException e) {
         }
+    }
+
+    //-----------------------------------------------------------------------
+    // Abugaliev A.A. new test mutant 615 1. mutated return of Object value for org/joda/time/format/DateTimeFormatterBuilder::appendFractionOfMinute to ( if (x != null) null else throw new RuntimeException ) → SURVIVED
+    //
+    public void test_AppendFractionOfMinute() {
+        DateTimeFormatterBuilder bld = new DateTimeFormatterBuilder();
+        try {
+            bld.appendFractionOfMinute(-2147483648, -2147483648);
+            fail();
+        }
+        catch (IllegalArgumentException ex){
+
+        }
+    }
+
+    public void test_AppendFractionOfMinute2() {
+        DateTimeFormatterBuilder bld = new DateTimeFormatterBuilder();
+        bld = bld.appendFractionOfMinute(0,1);
+        Assert.assertNotNull(bld);
     }
 
     private static void assertPrint(String expected, DateTimeFormatter f, DateTime dt) {

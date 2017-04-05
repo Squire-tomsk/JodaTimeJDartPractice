@@ -1,0 +1,9 @@
+@using = jpf-jdart
+@include = ./jdart.jpf
+
+target=org.joda.time.format.DriveFormatUtils
+
+concolic.method.testAppendPaddedInteger = \
+	org.joda.time.format.DriveFormatUtils.testAppendPaddedInteger(value:long, size:int)
+concolic.method.testAppendPaddedInteger.config = testAppendPaddedInteger
+jdart.configs.testAppendPaddedInteger.constraints=(size < 100)

@@ -1,0 +1,8 @@
+@using = jpf-jdart
+@include = ./jdart.jpf
+
+target=org.joda.time.chrono.DriveBaseChronology
+
+concolic.method.testValidate = org.joda.time.chrono.DriveBaseChronology.testValidate(chronoKind:int, int, values:int[])
+concolic.method.testValidate.config = testValidate
+

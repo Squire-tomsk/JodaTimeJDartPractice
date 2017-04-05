@@ -1,0 +1,5 @@
+@include=./DriveZonedChronology.jpf
+
+concolic.method=testGetDateTimeMillis
+
+z3.timeout=1000

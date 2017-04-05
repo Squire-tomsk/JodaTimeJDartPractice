@@ -1,0 +1,3 @@
+@include=./DriveZonedChronology.jpf
+
+concolic.method=testGetOffsetFromLocalToSubtract

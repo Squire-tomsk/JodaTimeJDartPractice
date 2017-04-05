@@ -1,0 +1,51 @@
+Let's try to run the following:
+
+> jpf -show -log src/drive/java/org/joda/time/chrono/testLocalToUTC.jpf
+
+Then, you will see the following error:
+
+> [SEVERE] cannot load application class org.joda.time.chrono.DriveZonedChronology
+
+This is because DriveZonedChronology.class is not in your
+classpath. In fact, you probably did not compile
+DriveZonedChronology.java. You first need to compile it. For example,
+you can do it as follows (In an IDE such as Eclipse, you can also
+src/drive/java as a source folder, and then you do not have to type
+javac command yourself):
+
+> javac -cp target/classes/ -d target/classes src/drive/java/org/joda/time/chrono/DriveZonedChronology.java (I assume you already ran 'mvn test')
+
+Now if you rerun jpf, you will still get an error that essentially
+complains FromString.class is missing. So you can obtain these missing
+files as follows:
+
+> mvn dependency:copy-dependencies
+
+You will get 3 jar files under target/dependency. Note that these 3
+jar files are already in your classpath. See the jpf.properties file.
+
+Now, you should be able to run a jpf file successfully.
+
+> jpf -show -log src/drive/java/org/joda/time/chrono/testLocalToUTC.jpf
+
+In the output, you will be able to see the following printout message:
+
+[*] chrono: class org.joda.time.chrono.GregorianChronology
+[*] localInstant: -9223372036854775804
+[*] hit the target 2
+
+That is, if we use -9223372036854775804 as the parameter of the
+localToUTC method, then target 2 in localToUTC is hit.
+
+Note that I changed the visibility of method localToUTC from private
+to public, just to use JDart. Once an appropriate parameter is found,
+the original visibility should be restored. In a JUnit test, the
+method can be called via reflection without having to change the
+visibility, as you can see in TestGregorianChronology.testLocalToUTC_Min_Value.
+
+You may find it strange to call a private method directly in a
+test. Ideally, it would be more desirable to reach our target from a
+public method. However, finding such a test will be more difficult
+even with symbolic execution, although not impossible. In this
+assignment, we simply allow calling a private method through
+reflection.

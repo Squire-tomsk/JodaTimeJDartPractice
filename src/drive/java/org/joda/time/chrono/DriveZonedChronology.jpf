@@ -1,0 +1,8 @@
+@using = jpf-jdart
+@include = ./jdart.jpf
+
+target=org.joda.time.chrono.DriveZonedChronology
+
+concolic.method.testLocalToUTC = \
+	org.joda.time.chrono.DriveZonedChronology.testLocalToUTC(chronoKind:int, localInstant:long)
+concolic.method.testLocalToUTC.config = testLocalToUTC

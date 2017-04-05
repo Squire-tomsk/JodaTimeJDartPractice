@@ -15,11 +15,10 @@
  */
 package org.joda.time.chrono;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import org.joda.time.Chronology;
 import org.joda.time.DateMidnight;
@@ -28,6 +27,10 @@ import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeUtils;
 import org.joda.time.DateTimeZone;
 import org.joda.time.YearMonthDay;
+
+import org.junit.Assert;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  * This class is a Junit unit test for GregorianChronology.
@@ -326,6 +329,72 @@ public class TestGregorianChronology extends TestCase {
         assertEquals(true, dt.monthOfYear().isLeap());
         assertEquals(true, dt.dayOfMonth().isLeap());
         assertEquals(true, dt.dayOfYear().isLeap());
+    }
+    
+    // New Tests
+    public void testLocalToUTC_Min_Value() {
+    	Chronology chrono = GregorianChronology.getInstance();
+    	ZonedChronology zc = ZonedChronology.getInstance(chrono, PARIS);
+    	
+        // localToUTC is a private method     	
+//    	long utc = zc.localToUTC(-9223372036854775804L);
+//    	assertEquals(Long.MIN_VALUE, utc);
+    	
+    	Class<?>[] argClasses = {long.class};
+    	Object[] argObjects = {-9223372036854775804L};
+    	Object utc = invokeMethod(zc, ZonedChronology.class, "localToUTC", argClasses, argObjects);
+    	assertEquals(Long.MIN_VALUE, utc);
+    }
+    
+    public void testgetDateTimeMillis() {
+    	Chronology chrono = GregorianChronology.getInstance();
+    	ZonedChronology zc = ZonedChronology.getInstance(chrono, PARIS);
+    	
+    	long t = zc.getDateTimeMillis(0, 0, 0, 0, 0);
+    	assertEquals(-3600000, t);
+    }
+    
+    @SuppressWarnings("unchecked")    
+    private Object invokeMethod(Object receiver, Class<?> targetClass,
+            String methodName, Class<?>[] argClasses, Object[] argObjects) {
+        try {
+			Method method = targetClass.getDeclaredMethod(methodName,
+                    argClasses);
+            method.setAccessible(true);
+            return method.invoke(receiver, argObjects);
+        }
+        catch (InvocationTargetException e) {
+        	org.junit.Assert.fail(e.toString());
+        }
+        catch (NoSuchMethodException e) {
+            // Should happen only rarely, because most times the
+            // specified method should exist. If it does happen, just let
+            // the test fail so the programmer can fix the problem.
+        	org.junit.Assert.fail("NoSuchMethodException: " + methodName);
+        }
+        catch (SecurityException e) {
+            // Should happen only rarely, because the setAccessible(true)
+            // should be allowed in when running unit tests. If it does
+            // happen, just let the test fail so the programmer can fix
+            // the problem.
+        	org.junit.Assert.fail(e.toString());
+        }
+        catch (IllegalAccessException e) {
+            // Should never happen, because setting accessible flag to
+            // true. If setting accessible fails, should throw a security
+            // exception at that point and never get to the invoke. But
+            // just in case, wrap it in a TestFailedException and let a
+            // human figure it out.
+        	org.junit.Assert.fail(e.toString());
+        }
+        catch (IllegalArgumentException e) {
+            // Should happen only rarely, because usually the right
+            // number and types of arguments will be passed. If it does
+            // happen, just let the test fail so the programmer can fix
+            // the problem.
+        	org.junit.Assert.fail(e.toString());
+        }
+        return null;
     }
 
 }

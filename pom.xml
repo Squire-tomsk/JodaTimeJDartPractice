@@ -314,6 +314,28 @@
     </resources>
     <!-- define build -->
     <plugins>
+      <!-- PIT -->
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>1.2.0</version>
+        <configuration>
+          <targetClasses>
+            <param>org.joda.time.format.FormatUtils</param>
+          </targetClasses>
+          <targetTests>
+            <param>org.joda.time*</param>
+          </targetTests>
+          <threads>8</threads>
+        </configuration>
+        <dependencies>
+          <dependency>
+              <groupId>org.pitest</groupId>
+              <artifactId>pitest-maven</artifactId>
+              <version>1.2.0</version>
+          </dependency>
+        </dependencies>  
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -707,7 +729,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.2</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

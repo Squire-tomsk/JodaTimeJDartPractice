@@ -1,0 +1,3 @@
+@include=./DriveDateTimeFormatterBuilder.jpf
+
+concolic.method=testAppendFractionOfMinute
