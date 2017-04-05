@@ -1,0 +1,9 @@
+@using = jpf-jdart
+@include = ./jdart.jpf
+
+target=org.joda.time.chrono.DriveISOYearOfEraDateTimeFieldv2
+
+concolic.method.getDifferenceAsLong = org.joda.time.chrono.ISOYearOfEraDateTimeField.getDifferenceAsLong(var1:long, var2:long)
+concolic.method.getDifferenceAsLong.config = getDifferenceAsLong
+concolic.method = getDifferenceAsLong
+

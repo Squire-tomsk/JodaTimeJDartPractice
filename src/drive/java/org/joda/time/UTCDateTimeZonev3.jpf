@@ -1,0 +1,8 @@
+@using = jpf-jdart
+@include = ./jdart.jpf
+
+target=org.joda.time.DriveUTCDateTimeZonev3
+
+concolic.method.previousTransition = org.joda.time.UTCDateTimeZone.previousTransition(instant:long)
+concolic.method.previousTransition.config = previousTransition
+concolic.method = previousTransition
