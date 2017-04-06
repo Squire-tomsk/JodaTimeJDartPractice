@@ -146,4 +146,108 @@ public class TestFormatUtils extends TestCase {
 		String result = FormatUtils.createErrorMessage("string",6);
 		Assert.assertEquals(result, "Invalid format: \"string\" is too short");
 	}
+
+	//created by Alexey Trusov
+	//mutant 145 killed
+	public void test_appendPaddedInteger1() {
+		StringBuilder sb = new StringBuilder();
+		try {
+		    FormatUtils.appendPaddedInteger(sb,0L,1);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Assert.assertEquals(sb.toString(),"0");
+	}
+	
+	//created by Alexey Trusov
+	//mutants 154 1, 2, 3 killed
+	public void test_appendPaddedInteger2() {
+		StringBuilder sb = new StringBuilder();
+		try {
+		    FormatUtils.appendPaddedInteger(sb,-9223372036854775808l,42);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Assert.assertEquals(sb.toString(),"-000000000000000000000009223372036854775808");
+	}
+	
+	//created by Alexey Trusov
+	//mutant 302 killed
+	public void test_appendUnpaddedInteger2() {
+		StringBuilder sb = new StringBuilder();
+		try {
+		    FormatUtils.appendUnpaddedInteger(sb,100);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Assert.assertEquals(sb.toString(),"100");
+	}
+
+	//created by Alexey Trusov
+	//mutant 74 1. memory error
+	public void test_appendPaddedInteger5() {
+		StringBuilder sb = new StringBuilder();
+		try {
+		    FormatUtils.appendPaddedInteger(sb, Integer.MIN_VALUE, 11);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Assert.assertEquals(sb.toString(), "-02147483648");
+	}
+
+	//created by Alexey Trusov
+	//mutant 74 2. killed, 3. killed1.
+	public void test_appendPaddedInteger6() {
+		StringBuilder sb = new StringBuilder();
+		try {
+		    FormatUtils.appendPaddedInteger(sb, Integer.MIN_VALUE, 10);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Assert.assertEquals(sb.toString(), "-2147483648");
+	}
+
+
+	//created by Alexey Trusov
+	//mutant 86 1. killed
+	public void test_appendPaddedInteger7() {
+		StringBuilder sb = new StringBuilder();
+		try {
+		    FormatUtils.appendPaddedInteger(sb, 100, 2);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Assert.assertEquals(sb.toString(), "100");
+	}
+	
+
+	//created by Alexey Trusov
+	//mutant 414 4 killed
+	public void test_calculateDigitCount10() {
+		int result = FormatUtils.calculateDigitCount(10);
+		Assert.assertEquals(result, 2);
+	}
+
+
+
+	//created by Alexey Trusov
+	//mutant 414 3 killed
+	public void test_calculateDigitCount11() {
+		int result = FormatUtils.calculateDigitCount(100);
+		Assert.assertEquals(result, 3);
+	}
+
+	//created by Alexey Trusov
+	//mutant 414 2 killed
+	public void test_calculateDigitCount12() {
+		int result = FormatUtils.calculateDigitCount(1000);
+		Assert.assertEquals(result, 4);
+	}
+
+	//created by Alexey Trusov
+	//mutant 414 1 killed
+	public void test_calculateDigitCount13() {
+		int result = FormatUtils.calculateDigitCount(10000);
+		Assert.assertEquals(result, 5);
+	}
 }

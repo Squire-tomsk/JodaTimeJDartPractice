@@ -16,3 +16,10 @@ concolic.method.testCalculateDigitCount = \
 	org.joda.time.format.DriveFormatUtils.testCalculateDigitCount(value:long)
 concolic.method.testCalculateDigitCount.config = testCalculateDigitCount
 
+concolic.method.testAppendUnpaddedInteger = \
+	org.joda.time.format.DriveFormatUtils.testAppendUnpaddedInteger(value:int)
+concolic.method.testAppendUnpaddedInteger.config = testAppendUnpaddedInteger
+
+
+
+
